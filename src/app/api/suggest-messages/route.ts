@@ -124,9 +124,13 @@ import { NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export const runtime = 'edge';
+const apikey = process.env.API_KEY
+if(!apikey){
+  throw new Error("API_key not provided")
+}
 
 // Initialize the model with your API key
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+const genAI = new GoogleGenerativeAI(apikey);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 export async function POST(req: Request) {
